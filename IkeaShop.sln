@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IkeaShop", "IkeaShop\IkeaShop.csproj", "{BAE398FE-0107-4F45-AF42-CCBA515EE3FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IkeaShop.Storage", "IkeaShop.Storage\IkeaShop.Storage.csproj", "{BAE398FE-0107-4F45-AF42-CCBA515EE3FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IkeaShop.OrderService", "IkeaShop.OrderService\IkeaShop.OrderService.csproj", "{EBFB7196-8039-4CE4-9A24-76EF93769BFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +14,9 @@ Global
 		{BAE398FE-0107-4F45-AF42-CCBA515EE3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAE398FE-0107-4F45-AF42-CCBA515EE3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAE398FE-0107-4F45-AF42-CCBA515EE3FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBFB7196-8039-4CE4-9A24-76EF93769BFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBFB7196-8039-4CE4-9A24-76EF93769BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBFB7196-8039-4CE4-9A24-76EF93769BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBFB7196-8039-4CE4-9A24-76EF93769BFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

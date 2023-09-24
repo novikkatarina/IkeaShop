@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/IkeaShop.Storage.props" />
+</Project>
