@@ -3,6 +3,7 @@ using System;
 using IkeaShop.OrderService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IkeaShop.OrderService.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230924161118_RenameColumns")]
+    partial class RenameColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,32 +52,7 @@ namespace IkeaShop.OrderService.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("IkeaShop.OrderService.Models.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("EstimatedDeliveryDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("IkeaShop.OrderService.Models.OrderedItem", b =>
+            modelBuilder.Entity("IkeaShop.OrderService.Models.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,14 +70,50 @@ namespace IkeaShop.OrderService.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Room")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("IkeaShop.OrderService.Models.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("DeleteDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("EstimatedDeliveryDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("IkeaShop.OrderService.Models.Item", b =>
+                {
+                    b.HasOne("IkeaShop.OrderService.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("IkeaShop.OrderService.Models.Order", b =>
@@ -113,25 +127,9 @@ namespace IkeaShop.OrderService.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("IkeaShop.OrderService.Models.OrderedItem", b =>
-                {
-                    b.HasOne("IkeaShop.OrderService.Models.Order", "Order")
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("IkeaShop.OrderService.Models.Customer", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("IkeaShop.OrderService.Models.Order", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

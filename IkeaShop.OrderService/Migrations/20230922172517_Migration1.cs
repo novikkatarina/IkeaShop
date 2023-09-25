@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace IkeaShop.Order.Migrations
+namespace IkeaShop.OrderService.Migrations
 {
     /// <inheritdoc />
     public partial class Migration1 : Migration

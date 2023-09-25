@@ -1,17 +1,12 @@
-using IkeaShop.Order.Data;
-using IkeaShop.Order.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-namespace IkeaShop.Order.Repositories;
-
-// using IkeaShop.Order.Data;
-// using IkeaShop.Order.Interfaces;
-// using IkeaShop.Order.Models;;
+namespace CommonDataAccess.Repositories;
 
 public class UnifiedRepository<TEntity> : IUnifiedRepository<TEntity> where TEntity : class
 {
-    private readonly ApplicationDatabaseContext context;
+    private readonly DbContext context;
 
-    public UnifiedRepository(ApplicationDatabaseContext context)
+    public UnifiedRepository(DbContext context)
     {
         this.context = context;
     }
@@ -22,7 +17,7 @@ public class UnifiedRepository<TEntity> : IUnifiedRepository<TEntity> where TEnt
         return saved > 0;
     }
 
-    public TEntity GetById(int id)
+    public TEntity GetById(Guid id)
     {
         return context.Set<TEntity>().Find(id);
     }

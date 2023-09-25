@@ -1,14 +1,24 @@
-using IkeaShop.Order.Data;
+using IkeaShop.OrderService.Data;
 
-namespace IkeaShop.Order.Models;
+namespace IkeaShop.OrderService.Models;
 
 public class Order
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public DateTime OrderDate { get; set; }
     public DateTime EstimatedDeliveryDate { get; set; }
-    public DateTime DeleteDate { get; set; }
-    public EnumOrderStatus Status { get; set; }
+    public OrderStatus Status { get; set; }
     public Guid CustomerId { get; set; }
     public Customer Customer { get; set; }
+    public IEnumerable<OrderedItem> Items { get; set; }
+    public Order()
+    {
+    }
+
+    public Order(Guid id, Guid customerId, IEnumerable<OrderedItem> items)
+    {
+        this.Id = id;
+        CustomerId = customerId;
+        Items = items;
+    }
 }

@@ -1,6 +1,6 @@
-using IkeaShop.Order.Models;
+using IkeaShop.OrderService.Models;
 using Microsoft.EntityFrameworkCore;
-namespace IkeaShop.Order.Data;
+namespace IkeaShop.OrderService.Data;
 
 public class ApplicationDatabaseContext : DbContext
 {
@@ -12,7 +12,7 @@ public class ApplicationDatabaseContext : DbContext
         /// <summary>
         /// Item в БД.
         /// </summary>
-        public DbSet<Item> Items { get; set; }
+        public DbSet<OrderedItem> Items { get; set; }
   
         /// <summary>
         /// Customer в БД.

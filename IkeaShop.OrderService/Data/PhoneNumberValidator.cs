@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace IkeaShop.Order.Data;
+namespace IkeaShop.OrderService.Data;
 
 public class PhoneNumberValidator
 {
