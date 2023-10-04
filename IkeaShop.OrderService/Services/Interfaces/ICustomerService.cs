@@ -5,8 +5,8 @@ namespace IkeaShop.OrderService.Services.Interfaces;
 public interface ICustomerService
 {
     Customer GetCustomerById(Guid id);
-    Customer CreateCustomer(Customer Customer);
-    Customer UpdateCustomer(Customer Customer);
+    Customer CreateCustomer(Customer customer);
+    Customer UpdateCustomer(Customer customer);
     bool DeleteCustomer(Guid id);
     List<Customer> GetAllCustomers();
 }

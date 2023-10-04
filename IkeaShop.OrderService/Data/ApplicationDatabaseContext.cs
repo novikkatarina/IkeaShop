@@ -7,7 +7,7 @@ public class ApplicationDatabaseContext : DbContext
         /// <summary>
         /// Order в БД.
         /// </summary>
-        public DbSet<Models.Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
   
         /// <summary>
         /// Item в БД.
@@ -31,7 +31,7 @@ public class ApplicationDatabaseContext : DbContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
                 optionsBuilder.UseNpgsql(
-                        "Host=localhost;Port=5432;Database=testdb;Username=postgres;Password=8313");
+                        "Host=localhost;Port=5432;Database=servicedb;Username=postgres;Password=8313");
         }
 
         

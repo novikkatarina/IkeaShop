@@ -11,8 +11,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // // Добавление сервисов в контекст ASP NET
-// builder.Services.AddScoped<ApplicationDatabaseContext>();
-//builder.Services.AddScoped(typeof(IUnifiedRepository<>),typeof(UnifiedRepository<>));
+
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IUnifiedRepository<Order>>(provider =>
 {
@@ -20,7 +19,13 @@ builder.Services.AddScoped<IUnifiedRepository<Order>>(provider =>
     return new UnifiedRepository<Order>(dbContext);
 });
 
-builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IUnifiedRepository<Customer>>(provider =>
+{
+    var dbContext = provider.GetRequiredService<ApplicationDatabaseContext>();
+    return new UnifiedRepository<Customer>(dbContext);
+});
+
+builder.Services.AddScoped<IOrderedItemService, OrderedItemService>();
 builder.Services.AddScoped<IUnifiedRepository<OrderedItem>>(provider =>
 {
     var dbContext = provider.GetRequiredService<ApplicationDatabaseContext>();

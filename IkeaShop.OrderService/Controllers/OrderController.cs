@@ -8,6 +8,7 @@ namespace IkeaShop.OrderService.Controllers;
 [Route("[controller]")]
 public class OrderController : ControllerBase
 {
+    
     private readonly IOrderService orderService;
     private readonly ILogger<OrderController> logger;
 
@@ -28,44 +29,66 @@ public class OrderController : ControllerBase
         {
             return NotFound();
         }
+
         return Ok(order);
     }
 
     [HttpPost]
-    public IActionResult CreateOrder([FromBody] Order order)
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
     {
-        var createdOrder = orderService.CreateOrder(order);
-        return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.Id }, createdOrder);
+      Order order = null;
+      try
+      {
+        order = await this.orderService.CreateOrder(request);
+      }
+        catch (NullReferenceException)
+        {
+          return NotFound("Товара нет в наличии");
+        }
+
+        return Ok(order);
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateOrder(Guid id, Order order)
-    {
-        if (id != order.Id)
+        public IActionResult UpdateOrder(Guid id, Order order)
         {
-            return BadRequest();
-        }
-        var updatedOrder = orderService.UpdateOrder(order);
-        if (updatedOrder == null)
-        {
-            return NotFound();
-        }
-        return NoContent();
-    }
+            if (id != order.Id)
+            {
+                return BadRequest();
+            }
 
-    [HttpDelete("{id}")]
-    public IActionResult DeleteOrder(Guid id)
-    {
-        
-        var deleted = orderService.DeleteOrder(id);
-        if (!deleted)
-        {
-            return NotFound();
+            var updatedOrder = orderService.UpdateOrder(order);
+            if (updatedOrder == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(order);
         }
-        return NoContent();
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteOrder(Guid id)
+        {
+            var deleted = orderService.DeleteOrder(id);
+            if (!deleted)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete("changestatus/{order}")]
+        public IActionResult ChangeOrderStatus(Order order)
+        {
+        
+            var status = orderService.ChangeOrderStatus(order);
+            if (status == null)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+    
+        
     }
-    
-    // GetOrdersByDate
-    
-    
-}

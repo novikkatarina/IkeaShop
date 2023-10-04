@@ -5,11 +5,11 @@ using IkeaShop.OrderService.Models;
 
 namespace IkeaShop.ItemService.Services;
 
-public class ItemService : IItemService
+public class OrderedItemService : IOrderedItemService
 {
     private readonly IUnifiedRepository<OrderedItem> ItemRepository;
 
-    public ItemService(IUnifiedRepository<OrderedItem> ItemRepository)
+    public OrderedItemService(IUnifiedRepository<OrderedItem> ItemRepository)
     {
         this.ItemRepository = ItemRepository;
     }
@@ -36,11 +36,6 @@ public class ItemService : IItemService
         return ItemRepository.Delete(Item);
     }
 
-    public IEnumerable<OrderedItem> GetItemsRoom(ItemRoom room)
-    {
-        return ItemRepository.GetAll().ToList().Where(item => item.Room == room);
-    }
-    
     // public IEnumerable<Item> GetItemsPrice(ItemRoom room)
     // {
     //     return ItemRepository.GetAll().ToList().Where(item => item.Room == room);

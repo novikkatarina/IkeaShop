@@ -7,16 +7,16 @@ namespace IkeaShop.itemService.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ItemController : ControllerBase
+public class OrderedItemController : ControllerBase
 {
-    private readonly IItemService ItemService;
-    private readonly ILogger<ItemController> logger;
+    private readonly IOrderedItemService _orderedItemService;
+    private readonly ILogger<OrderedItemController> logger;
 
-    public ItemController(
-        IItemService itemService,
-        ILogger<ItemController> logger)
+    public OrderedItemController(
+        IOrderedItemService orderedItemService,
+        ILogger<OrderedItemController> logger)
     {
-        this.ItemService = itemService;
+        this._orderedItemService = orderedItemService;
         this.logger = logger;
     }
 
@@ -24,7 +24,7 @@ public class ItemController : ControllerBase
     public IActionResult Getitem(Guid id)
     {
         logger.LogInformation("я сюда зашел");
-        var item = ItemService.GetItemById(id);
+        var item = _orderedItemService.GetItemById(id);
         if (item == null)
         {
             return NotFound();
@@ -35,7 +35,7 @@ public class ItemController : ControllerBase
     [HttpPost]
     public IActionResult Createitem(OrderedItem orderedItem)
     {
-        var createditem = ItemService.CreateItem(orderedItem);
+        var createditem = _orderedItemService.CreateItem(orderedItem);
         return CreatedAtAction(nameof(Getitem), new { id = createditem.Id }, createditem);
     }
 
@@ -46,7 +46,7 @@ public class ItemController : ControllerBase
         {
             return BadRequest();
         }
-        var updateditem = ItemService.UpdateItem(orderedItem);
+        var updateditem = _orderedItemService.UpdateItem(orderedItem);
         if (updateditem == null)
         {
             return NotFound();
@@ -58,26 +58,13 @@ public class ItemController : ControllerBase
     public IActionResult Deleteitem(Guid id)
     {
         
-        var deleted = ItemService.DeleteItem(id);
+        var deleted = _orderedItemService.DeleteItem(id);
         if (!deleted)
         {
             return NotFound();
         }
         return NoContent();
     }
-    
-    
-    
-    [HttpGet("GetItemsByRoom")]
-    public IActionResult GetItemsByRoom(ItemRoom room)
-    {
-
-        var found = ItemService.GetItemsRoom(room);
-        if (!found.Any())
-        {
-            return NotFound();
-        }
-        return NoContent();
-    }
+  
     
 }

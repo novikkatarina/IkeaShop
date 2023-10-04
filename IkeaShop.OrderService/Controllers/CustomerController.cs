@@ -65,12 +65,6 @@ public class CustomerController : ControllerBase
         }
         return NoContent();
     }
-    
-    
-    
-    
-    
-    // 
-    
-    
+
+
 }
