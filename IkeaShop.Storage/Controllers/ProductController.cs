@@ -24,13 +24,13 @@ public class ProductController : ControllerBase
     [HttpGet("GetProducts")]
     public IActionResult GetProducts(Guid id)
     {
-        var order = ProductService.GetAllItems();
-        if (order == null)
+        var products = ProductService.GetAllItems();
+        if (products == null)
         {
             return NotFound();
         }
 
-        return Ok(order);
+        return Ok(products);
     }
     
     [HttpGet("count/{id}")]

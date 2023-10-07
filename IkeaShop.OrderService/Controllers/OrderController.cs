@@ -8,87 +8,85 @@ namespace IkeaShop.OrderService.Controllers;
 [Route("[controller]")]
 public class OrderController : ControllerBase
 {
-    
-    private readonly IOrderService orderService;
-    private readonly ILogger<OrderController> logger;
+  private readonly IOrderService orderService;
 
-    public OrderController(
-        IOrderService orderService,
-        ILogger<OrderController> logger)
+  public OrderController(
+    IOrderService orderService,
+    ILogger<OrderController> logger)
+  {
+    this.orderService = orderService;
+  }
+
+  [HttpGet("{id}")]
+  public IActionResult GetOrder(Guid id)
+  {
+    var order = orderService.GetOrderById(id);
+    if (order == null)
     {
-        this.orderService = orderService;
-        this.logger = logger;
+      return NotFound();
     }
 
-    [HttpGet("{id}")]
-    public IActionResult GetOrder(Guid id)
+    return Ok(order);
+  }
+
+  [HttpPost("CreateOrder")]
+  public async Task<IActionResult> CreateOrder(
+    [FromBody] CreateOrderRequest request)
+  {
+    try
     {
-        logger.LogInformation("я сюда зашел");
-        var order = orderService.GetOrderById(id);
-        if (order == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(order);
+      var order = await this.orderService.CreateOrder(request);
+      var response = new CreateOrderResponse();
+      response.OrderId = order.Id;
+      response.EstimatedDeliveryTime = order.EstimatedDeliveryDate;
+      response.Price = order.TotalPrice;
+      return Ok(response);
     }
-
-    [HttpPost]
-    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
+    catch (NullReferenceException)
     {
-      Order order = null;
-      try
-      {
-        order = await this.orderService.CreateOrder(request);
-      }
-        catch (NullReferenceException)
-        {
-          return NotFound("Товара нет в наличии");
-        }
+      return BadRequest();
+    }
+  }
 
-        return Ok(order);
+  [HttpPut("{id}")]
+  public IActionResult UpdateOrder(Guid id, Order order)
+  {
+    if (id != order.Id)
+    {
+      return BadRequest();
     }
 
-    [HttpPut("{id}")]
-        public IActionResult UpdateOrder(Guid id, Order order)
-        {
-            if (id != order.Id)
-            {
-                return BadRequest();
-            }
-
-            var updatedOrder = orderService.UpdateOrder(order);
-            if (updatedOrder == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(order);
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult DeleteOrder(Guid id)
-        {
-            var deleted = orderService.DeleteOrder(id);
-            if (!deleted)
-            {
-                return NotFound();
-            }
-
-            return Ok();
-        }
-
-        [HttpDelete("changestatus/{order}")]
-        public IActionResult ChangeOrderStatus(Order order)
-        {
-        
-            var status = orderService.ChangeOrderStatus(order);
-            if (status == null)
-            {
-                return NotFound();
-            }
-            return Ok();
-        }
-    
-        
+    var updatedOrder = orderService.UpdateOrder(order);
+    if (updatedOrder == null)
+    {
+      return NotFound();
     }
+
+    return Ok(order);
+  }
+
+  [HttpDelete("{id}")]
+  public IActionResult DeleteOrder(Guid id)
+  {
+    var deleted = orderService.DeleteOrder(id);
+    if (!deleted)
+    {
+      return NotFound();
+    }
+
+    return Ok();
+  }
+
+  [HttpPost("pay")]
+  public IActionResult Pay(PayRequest request)
+  {
+    var status = orderService.SetOrderPayed(request.OrderId);
+    if (status == null)
+    {
+      return NotFound();
+    }
+
+    return Ok();
+  }
+
+}

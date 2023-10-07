@@ -10,21 +10,18 @@ namespace IkeaShop.CustomerService.Controllers;
 public class CustomerController : ControllerBase
 {
     private readonly ICustomerService CustomerService;
-    private readonly ILogger<CustomerController> logger;
 
     public CustomerController(
         ICustomerService CustomerService,
         ILogger<CustomerController> logger)
     {
-        this.CustomerService = CustomerService;
-        this.logger = logger;
+        this.CustomerService = CustomerService; ;
     }
 
     [HttpGet("{id}")]
     public IActionResult GetCustomer(Guid id)
     {
-        logger.LogInformation("я сюда зашел");
-        var Customer = CustomerService.GetCustomerById(id);
+      var Customer = CustomerService.GetCustomerById(id);
         if (Customer == null)
         {
             return NotFound();

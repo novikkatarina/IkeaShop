@@ -12,5 +12,5 @@ public interface IOrderService
     bool DeleteOrder(Guid id);
     List<Order> GetAllOrders();
     Task<int> GetQuantityAsync(Guid itemId);
-    Order ChangeOrderStatus(Order order);
+    Task<Order> SetOrderPayed(Guid id);
 }

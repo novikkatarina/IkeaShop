@@ -31,6 +31,7 @@ public class UnifiedRepository<TEntity> : IUnifiedRepository<TEntity> where TEnt
     public TEntity Update(TEntity entity)
     {
         context.Set<TEntity>().Update(entity);
+        Save();
         return entity;
     }
 

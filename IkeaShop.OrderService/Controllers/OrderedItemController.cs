@@ -13,18 +13,15 @@ public class OrderedItemController : ControllerBase
     private readonly ILogger<OrderedItemController> logger;
 
     public OrderedItemController(
-        IOrderedItemService orderedItemService,
-        ILogger<OrderedItemController> logger)
+        IOrderedItemService orderedItemService)
     {
         this._orderedItemService = orderedItemService;
-        this.logger = logger;
     }
 
     [HttpGet("{id}")]
     public IActionResult Getitem(Guid id)
     {
-        logger.LogInformation("я сюда зашел");
-        var item = _orderedItemService.GetItemById(id);
+      var item = _orderedItemService.GetItemById(id);
         if (item == null)
         {
             return NotFound();

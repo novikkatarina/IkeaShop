@@ -19,12 +19,14 @@ public class ExampleSeed
         {
             new Customer
             {
-                Id = Guid.NewGuid(), PhoneNumber = "123-456-7890", Name = "Customer 1", Address = "Address 1",
+                Id = Guid.NewGuid(), 
+                PhoneNumber = "123-456-7890", Name = "Customer 1", Address = "Address 1",
                 Email = "customer1@example.com"
             },
             new Customer
             {
-                Id = Guid.NewGuid(), PhoneNumber = "987-654-3210", Name = "Customer 2", Address = "Address 2",
+                Id = Guid.NewGuid(), 
+                PhoneNumber = "987-654-3210", Name = "Customer 2", Address = "Address 2",
                 Email = "customer2@example.com"
             }
         };
@@ -37,7 +39,8 @@ public class ExampleSeed
         {
             new Order
             {
-                CustomerId = customers[0].Id, Items = new List<OrderedItem>
+                CustomerId = customers[0].Id, 
+                Items = new List<OrderedItem>
                 {
                     new OrderedItem
                     {

@@ -10,6 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
 // // Добавление сервисов в контекст ASP NET
 
 builder.Services.AddScoped<IOrderService, OrderService>();
@@ -55,7 +60,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("Open"); // Apply the CORS policy here
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

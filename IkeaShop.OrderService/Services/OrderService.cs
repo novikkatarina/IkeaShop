@@ -2,6 +2,7 @@ using CommonDataAccess;
 using IkeaShop.OrderService.Data;
 using IkeaShop.OrderService.Services.Interfaces;
 using IkeaShop.OrderService.Models;
+using Newtonsoft.Json;
 
 namespace IkeaShop.OrderService.Services;
 
@@ -41,7 +42,7 @@ public class OrderService : IOrderService
     // customer not found
     if (customer == null)
     {
-      PhoneNumberValidator.Validate(createOrderRequest.Customer.PhoneNumber);
+      // PhoneNumberValidator.Validate(createOrderRequest.Customer.PhoneNumber);
       customer = new Customer
       {
         Name = createOrderRequest.Customer.Name,
@@ -82,7 +83,7 @@ public class OrderService : IOrderService
           ProductNumber = item.ProductNumber,
           Price = await GetPriceAsync(item.ProductId),
           Quantity = item.Quantity,
-          // OrderId = order.Id
+          OrderId = order.Id
         });
       }
 
@@ -164,9 +165,24 @@ public class OrderService : IOrderService
     return -1;
   }
 
-  public Order ChangeOrderStatus(Order order)
+  public async Task<Order> SetOrderPayed(Guid orderId)
   {
+    var order = orderRepository.GetById(orderId);
     order.Status = OrderStatus.Payed;
-    return order;
+    orderRepository.Update(order);
+
+    var request = new
+    {
+      Email = order.Customer.Email,
+      EstimatedDeliveryTime = order.EstimatedDeliveryDate,
+      Price = order.TotalPrice
+    };
+    return null;
+    //
+    //   var content = new StringContent(JsonConvert.SerializeObject(request));
+    //
+    //   var response = await httpClient.PostAsync("http://localhost:5271/email/send/");
+    //   return order;
+    //
   }
 }
