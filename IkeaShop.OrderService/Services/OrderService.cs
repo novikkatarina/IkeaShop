@@ -165,7 +165,7 @@ public class OrderService : IOrderService
     return -1;
   }
 
-  public async Task<Order> SetOrderPayed(Guid orderId)
+  public async Task SetOrderPayed(Guid orderId)
   {
     var order = orderRepository.GetById(orderId);
     order.Status = OrderStatus.Payed;
@@ -175,14 +175,12 @@ public class OrderService : IOrderService
     {
       Email = order.Customer.Email,
       EstimatedDeliveryTime = order.EstimatedDeliveryDate,
-      Price = order.TotalPrice
+      Price = order.TotalPrice,
+      Name = order.Customer.Name
     };
-    return null;
-    //
-    //   var content = new StringContent(JsonConvert.SerializeObject(request));
-    //
-    //   var response = await httpClient.PostAsync("http://localhost:5271/email/send/");
-    //   return order;
-    //
+
+    var content = new StringContent(JsonConvert.SerializeObject(request));
+    
+    var response = await httpClient.PostAsync("http://localhost:5271/email/send/", content);
   }
 }

@@ -11,8 +11,8 @@ public class OrderController : ControllerBase
   private readonly IOrderService orderService;
 
   public OrderController(
-    IOrderService orderService,
-    ILogger<OrderController> logger)
+    IOrderService orderService
+  )
   {
     this.orderService = orderService;
   }
@@ -88,5 +88,4 @@ public class OrderController : ControllerBase
 
     return Ok();
   }
-
 }
