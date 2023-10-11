@@ -2,7 +2,6 @@ using CommonDataAccess;
 using CommonDataAccess.Repositories;
 using IkeaShop.Data;
 using IkeaShop.Models;
-using IkeaShop.Models.Services;
 using IkeaShop.Service;
 using Microsoft.EntityFrameworkCore;
 

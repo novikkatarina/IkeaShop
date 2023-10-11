@@ -1,3 +1,4 @@
+using System.Text;
 using CommonDataAccess;
 using IkeaShop.OrderService.Data;
 using IkeaShop.OrderService.Services.Interfaces;
@@ -54,13 +55,19 @@ public class OrderService : IOrderService
     }
 
     // request items count from storage
+    var missingItems = new List<CreateOrderRequestItem>();
     foreach (var item in createOrderRequest.Items)
     {
       var countInStorage = await GetQuantityAsync(item.ProductId);
       if (item.Quantity > countInStorage)
       {
-        throw new NullReferenceException ("Товара нет в наличии");
+        missingItems.Add(item);
       }
+    }
+
+    if (missingItems.Count > 0)
+    {
+      throw new ArgumentException($"Some of items are out of stock.");
     }
 
     // everything is fine
@@ -88,6 +95,7 @@ public class OrderService : IOrderService
       }
 
       order.TotalPrice = await GetTotalPrice(order);
+      orderRepository.Update(order);
       return order;
     }
 
@@ -100,7 +108,7 @@ public class OrderService : IOrderService
     decimal total = 0;
     foreach (var item in items)
     {
-      total = +await GetPriceAsync(item.ProductId);
+      total += await GetPriceAsync(item.ProductId);
     }
 
     return total;
@@ -121,8 +129,7 @@ public class OrderService : IOrderService
 
     return -1;
   }
-
-
+  
   public DateTimeOffset EstimatedDeliveryTime()
   {
     Random random = new Random();
@@ -151,14 +158,14 @@ public class OrderService : IOrderService
   public async Task<int> GetQuantityAsync(Guid itemId)
   {
     // Создайте HTTP-запрос к методу микросервиса Storage
-    var response =
+    HttpResponseMessage response =
       await httpClient.GetAsync(
         $"http://localhost:5246/product/count/{itemId}");
 
     if (response.IsSuccessStatusCode)
     {
-      var content = await response.Content.ReadAsStringAsync();
-      var numberOfItems = int.Parse(content);
+      string content = await response.Content.ReadAsStringAsync();
+      int numberOfItems = int.Parse(content);
       return numberOfItems;
     }
 
@@ -171,16 +178,29 @@ public class OrderService : IOrderService
     order.Status = OrderStatus.Payed;
     orderRepository.Update(order);
 
+    var customer = customerRepository.GetById(order.CustomerId);
+
     var request = new
     {
-      Email = order.Customer.Email,
+      Email = customer.Email,
       EstimatedDeliveryTime = order.EstimatedDeliveryDate,
       Price = order.TotalPrice,
-      Name = order.Customer.Name
+      Name = customer.Name
     };
 
-    var content = new StringContent(JsonConvert.SerializeObject(request));
+    var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+
+    try
+    {
+      var response =
+        await httpClient.PostAsync("http://localhost:5271/email/send/",
+          content);
+      Console.WriteLine(response);
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine(e);
+    }
     
-    var response = await httpClient.PostAsync("http://localhost:5271/email/send/", content);
   }
 }

@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Notifier.Services;
 
 using System.Net;
@@ -11,8 +13,6 @@ public class PaymentDataService
     int i = 0;
     while (i != 5)
     {
-      
-
       try
       {
         using (var client = new SmtpClient())
@@ -32,21 +32,27 @@ public class PaymentDataService
                  ))
           {
             message.Subject = "IkeaShop Delivery";
+
+            // Format the date
+            string formattedDate = content.EstimatedDeliveryTime
+              .ToUniversalTime()
+              .AddHours(4) // Adding 4 hours for GMT+4
+              .ToString("dd.MM.yyyy HH:mm 'GMT+4'", CultureInfo.InvariantCulture);
+
             message.Body = "Hello, Dear Customer, " + content.Name +
                            ". We are happy to notify you about the status of your order." +
-                           "As soon as it has been payed already and Total Price amounted to " +
+                           "As soon as it has been paid already and Total Price amounted to " +
                            content.Price +
                            ". Your Order is assembling now. The Estimated Delivery Time is " +
-                           content.EstimatedDeliveryTime;
+                           formattedDate;
             client.Send(message);
           }
 
-          Console.WriteLine("skxol");
+          Console.WriteLine("Sent");
           break;
         }
       }
       catch (Exception e)
-
       {
         Console.WriteLine(e.Message);
       }

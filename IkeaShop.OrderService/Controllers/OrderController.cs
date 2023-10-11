@@ -12,7 +12,7 @@ public class OrderController : ControllerBase
 
   public OrderController(
     IOrderService orderService
-  )
+)
   {
     this.orderService = orderService;
   }
@@ -42,9 +42,9 @@ public class OrderController : ControllerBase
       response.Price = order.TotalPrice;
       return Ok(response);
     }
-    catch (NullReferenceException)
+    catch (ArgumentException exception)
     {
-      return BadRequest();
+      return BadRequest(exception.Message);
     }
   }
 
@@ -88,4 +88,5 @@ public class OrderController : ControllerBase
 
     return Ok();
   }
+
 }

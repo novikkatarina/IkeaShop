@@ -77,7 +77,7 @@ public class ExampleSeed
                 Price = 4500M,
                 Quantity = 9,
                 Room = ProductRoom.Kitchen,
-                Title = "ENHET",
+                Title = "ENHET KITCHEN",
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/enhet-kitchen-white-grey-frame__1035193_pe837994_s5.jpg?f=xl",
                 LinkSecond =
@@ -103,7 +103,7 @@ public class ExampleSeed
                 Price = 17900M,
                 Quantity = 15,
                 Room = ProductRoom.Bathroom,
-                Title = "HEMNES",
+                Title = "HEMNES BATHROOM",
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/hemnes-mirror-cabinet-with-2-doors-white__1082337_pe858627_s5.jpg?f=xl",
                 LinkSecond =
