@@ -28,7 +28,8 @@ public class ExampleSeed
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/idanaes-upholstered-bed-frame-gunnared-dark-grey__0953724_pe802884_s5.jpg?f=xl",
                 LinkSecond =
-                    "https://www.ikea.com/gb/en/images/products/idanaes-upholstered-bed-frame-gunnared-dark-grey__0975281_pe812713_s5.jpg?f=xl"
+                    "https://www.ikea.com/gb/en/images/products/idanaes-upholstered-bed-frame-gunnared-dark-grey__0975281_pe812713_s5.jpg?f=xl",
+                Description = "Upholstered bed frame, Gunnared dark grey, Standard Double."
             },
             new Product
             {
@@ -41,7 +42,8 @@ public class ExampleSeed
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/hemnes-day-bed-w-3-drawers-2-mattresses-white-afjaell-medium-firm__1180460_pe896336_s5.jpg?f=xl",
                 LinkSecond =
-                    "https://www.ikea.com/gb/en/images/products/hemnes-day-bed-w-3-drawers-2-mattresses-white-afjaell-medium-firm__1078996_pe857423_s5.jpg?f=xl"
+                    "https://www.ikea.com/gb/en/images/products/hemnes-day-bed-w-3-drawers-2-mattresses-white-afjaell-medium-firm__1078996_pe857423_s5.jpg?f=xl",
+                Description = "Day-bed frame with 3 drawers, white, 80x200 cm."
             },
 
             new Product()
@@ -55,7 +57,8 @@ public class ExampleSeed
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/sagstua-bed-frame-black-luroey__0783215_pe761511_s5.jpg?f=xl",
                 LinkSecond =
-                    "https://www.ikea.com/gb/en/images/products/sagstua-bed-frame-black-luroey__1102014_pe866839_s5.jpg?f=xl"
+                    "https://www.ikea.com/gb/en/images/products/sagstua-bed-frame-black-luroey__1102014_pe866839_s5.jpg?f=xl",
+                Description = "Bed frame, black, Standard King."
             },
             new Product()
             {
@@ -68,7 +71,8 @@ public class ExampleSeed
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/metod-maximera-wall-cab-w-2-glass-doors-2-drawers-white-stensund-light-green__1105320_pe868065_s5.jpg?f=xl",
                 LinkSecond =
-                    "https://www.ikea.com/gb/en/images/products/metod-maximera-wall-cab-w-2-glass-doors-2-drawers-black-lerhyttan-black-stained__0260116_pe403633_s5.jpg?f=xl"
+                    "https://www.ikea.com/gb/en/images/products/metod-maximera-wall-cab-w-2-glass-doors-2-drawers-black-lerhyttan-black-stained__0260116_pe403633_s5.jpg?f=xl",
+                Description = "Wall cab w 2 glass doors/2 drawers, white/Stensund light green, 80x100 cm."
             },
             new Product()
             {
@@ -81,7 +85,8 @@ public class ExampleSeed
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/enhet-kitchen-white-grey-frame__1035193_pe837994_s5.jpg?f=xl",
                 LinkSecond =
-                    "https://www.ikea.com/gb/en/images/products/enhet-kitchen-white-grey-frame__1038054_pe839407_s5.jpg?f=xl"
+                    "https://www.ikea.com/gb/en/images/products/enhet-kitchen-white-grey-frame__1038054_pe839407_s5.jpg?f=xl",
+                Description = ""
             },
             new Product()
             {
@@ -94,7 +99,8 @@ public class ExampleSeed
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/raskog-trolley-white__0503386_pe632627_s5.jpg?f=xl",
                 LinkSecond =
-                    "https://www.ikea.com/gb/en/images/products/raskog-trolley-white__1134462_pe878783_s5.jpg?f=xl"
+                    "https://www.ikea.com/gb/en/images/products/raskog-trolley-white__1134462_pe878783_s5.jpg?f=xl",
+                Description = "Kitchen, white/grey frame, 266.5x63.5x222.5 cm."
             },
             new Product()
             {
@@ -107,7 +113,8 @@ public class ExampleSeed
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/hemnes-mirror-cabinet-with-2-doors-white__1082337_pe858627_s5.jpg?f=xl",
                 LinkSecond =
-                    "https://www.ikea.com/gb/en/images/products/hemnes-mirror-cabinet-with-2-doors-white__0860724_pe555272_s5.jpg?f=xl"
+                    "https://www.ikea.com/gb/en/images/products/hemnes-mirror-cabinet-with-2-doors-white__0860724_pe555272_s5.jpg?f=xl",
+                Description = "Bathroom furniture, set of 5, white/Runskär tap, 102 cm"
             },
             new Product()
             {
@@ -120,7 +127,8 @@ public class ExampleSeed
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/enhet-storage-combination-white-oak-effect__1082987_pe858916_s5.jpg?f=xl",
                 LinkSecond =
-                    "https://www.ikea.com/gb/en/images/products/enhet-storage-combination-white-oak-effect__1096367_pe864337_s5.jpg?f=xl"
+                    "https://www.ikea.com/gb/en/images/products/enhet-storage-combination-white-oak-effect__1096367_pe864337_s5.jpg?f=xl",
+                Description = "Storage combination, white/oak effect, 140x32x204 cm."
             },
 
             new Product()
@@ -134,7 +142,8 @@ public class ExampleSeed
                 LinkFirst =
                     "https://www.ikea.com/gb/en/images/products/hemnes-raettviken-bathroom-furniture-set-of-5-white-runskaer-tap__0730932_pe737860_s5.jpg?f=xl",
                 LinkSecond =
-                    "https://www.ikea.com/gb/en/images/products/hemnes-raettviken-bathroom-furniture-set-of-5-white-runskaer-tap__0756620_pe748993_s5.jpg?f=xl"
+                    "https://www.ikea.com/gb/en/images/products/hemnes-raettviken-bathroom-furniture-set-of-5-white-runskaer-tap__0756620_pe748993_s5.jpg?f=xl",
+                Description = "Bathroom furniture, set of 5, white/Runskär tap, 102 cm"
             },
         };
 

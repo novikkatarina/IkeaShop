@@ -12,4 +12,5 @@ public class Product
     public string Title { set; get; }
     public string LinkFirst { set; get; }
     public string LinkSecond  { set; get; }
+    public string Description { set; get; }
 }
