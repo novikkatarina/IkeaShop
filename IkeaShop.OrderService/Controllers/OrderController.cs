@@ -38,7 +38,12 @@ public class OrderController : ControllerBase
       var order = await this.orderService.CreateOrder(request);
       var response = new CreateOrderResponse();
       response.OrderId = order.Id;
-      response.EstimatedDeliveryTime = order.EstimatedDeliveryDate;
+      string formattedDate = order.EstimatedDeliveryDate
+                                          .ToUniversalTime()
+                                          .AddHours(4) // Adding 4 hours for GMT+4
+                                          .ToString("dd.MM.yyyy HH:mm 'GMT+4'");
+      response.EstimatedDeliveryTime = formattedDate;
+      
       response.Price = order.TotalPrice;
       return Ok(response);
     }
