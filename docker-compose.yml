@@ -1,0 +1,62 @@
+version: '3.4'
+
+services:
+
+  notifier:
+    image: notifier
+    build:
+      context: ./IkeaShop-backend
+      dockerfile: Dockerfile-notifier
+
+  orderservice1:
+    image: orderservice
+    build:
+      context: ./IkeaShop-backend
+      dockerfile: Dockerfile-order
+  
+  orderservice2:
+    image: orderservice
+    build:
+      context: ./IkeaShop-backend
+      dockerfile: Dockerfile-order
+   
+
+  orderservice3:
+    image: orderservice
+    build:
+      context: ./IkeaShop-backend
+      dockerfile: Dockerfile-order
+  
+
+  storage:
+    image: storage
+    build:
+      context: ./IkeaShop-backend
+      dockerfile: Dockerfile-storage
+
+  frontend:
+    image: frontend
+    build:
+      context: ./ikeashop-frontend
+      dockerfile: Dockerfile
+
+  tgbot:
+    image: tgbot
+    build:
+      context: ./ikeashop-tgbot
+      dockerfile: Dockerfile
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:80"
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: default-db
+    ports:
+      - "5433:5432"
