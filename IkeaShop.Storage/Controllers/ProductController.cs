@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IkeaShop.Controllers;
 
+/// <summary>
+/// Controller for managing product-related actions.
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class ProductController : ControllerBase
@@ -12,14 +15,24 @@ public class ProductController : ControllerBase
   private readonly IProductService ProductService;
   private readonly ILogger<ProductController> logger;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="ProductController"/> class.
+  /// </summary>
+  /// <param name="productService">The product service.</param>
+  /// <param name="logger">The logger.</param>
   public ProductController(
-    IProductService ProductService,
+    IProductService productService,
     ILogger<ProductController> logger)
   {
-    this.ProductService = ProductService;
+    this.ProductService = productService;
     this.logger = logger;
   }
 
+  /// <summary>
+  /// Gets all products.
+  /// </summary>
+  /// <param name="id">The unique identifier of the product.</param>
+  /// <returns>A list of all products.</returns>
   [HttpGet("GetProducts")]
   public IActionResult GetProducts(Guid id)
   {
@@ -32,6 +45,11 @@ public class ProductController : ControllerBase
     return Ok(products);
   }
 
+  /// <summary>
+  /// Gets the count of a specific product.
+  /// </summary>
+  /// <param name="id">The unique identifier of the product.</param>
+  /// <returns>The count of the product.</returns>
   [HttpGet("count/{id}")]
   public IActionResult GetProductCount(Guid id)
   {
@@ -44,6 +62,11 @@ public class ProductController : ControllerBase
     return Ok(count);
   }
 
+  /// <summary>
+  /// Gets the price of a specific product.
+  /// </summary>
+  /// <param name="id">The unique identifier of the product.</param>
+  /// <returns>The price of the product.</returns>
   [HttpGet("price/{id}")]
   public IActionResult GetProductPrice(Guid id)
   {
@@ -56,7 +79,11 @@ public class ProductController : ControllerBase
     return Ok(price);
   }
 
-
+  /// <summary>
+  /// Gets products by room.
+  /// </summary>
+  /// <param name="room">The room for which to retrieve products.</param>
+  /// <returns>A list of products for the specified room.</returns>
   [HttpGet("GetItemsByRoom/{room}")]
   public IActionResult GetProductsByRoom(ProductRoom room)
   {
@@ -69,6 +96,11 @@ public class ProductController : ControllerBase
     return Ok(found);
   }
 
+  /// <summary>
+  /// Gets product names by their identifiers.
+  /// </summary>
+  /// <param name="request">The request containing product identifiers.</param>
+  /// <returns>A list of product names corresponding to the provided identifiers.</returns>
   [HttpPost("GetProductNames")]
   public IActionResult GetProductById([FromBody] GetProductNamesRequest request)
   {
