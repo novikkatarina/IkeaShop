@@ -8,6 +8,10 @@
         <RootNamespace>IkeaShop</RootNamespace>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="EntityFramework" Version="6.4.4" />
         <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
