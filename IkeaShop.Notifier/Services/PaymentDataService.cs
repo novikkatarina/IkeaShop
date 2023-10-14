@@ -11,6 +11,13 @@ using System.Net.Mail;
 /// </summary>
 public class PaymentDataService
 {
+  private readonly ILogger<PaymentDataService> _logger;
+
+  public PaymentDataService(ILogger<PaymentDataService> logger)
+  {
+    _logger = logger;
+  }
+
   /// <summary>
   /// Sends an email notification to the customer with payment and order information.
   /// </summary>
@@ -56,13 +63,13 @@ public class PaymentDataService
             client.Send(message);
           }
 
-          Console.WriteLine("Sent");
+          _logger.LogInformation("Sent");
           break;
         }
       }
       catch (Exception e)
       {
-        Console.WriteLine(e.Message);
+        _logger.LogError("{Message}", e.Message);
       }
 
       i++;
