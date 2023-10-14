@@ -118,7 +118,7 @@ public class OrderService : IOrderService
   {
     var response =
       await httpClient.GetAsync(
-        $"http://localhost:5246/product/price/{itemId}");
+        $"http://storage/product/price/{itemId}");
 
     if (response.IsSuccessStatusCode)
     {
@@ -160,7 +160,7 @@ public class OrderService : IOrderService
     // Создайте HTTP-запрос к методу микросервиса Storage
     HttpResponseMessage response =
       await httpClient.GetAsync(
-        $"http://localhost:5246/product/count/{itemId}");
+        $"http://storage/product/count/{itemId}");
 
     if (response.IsSuccessStatusCode)
     {
@@ -193,7 +193,7 @@ public class OrderService : IOrderService
     try
     {
       var response =
-        await httpClient.PostAsync("http://localhost:5271/email/send/",
+        await httpClient.PostAsync("http://notifier/email/send/",
           content);
       Console.WriteLine(response);
     }

@@ -26,7 +26,7 @@ namespace IkeaShop.Data
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       optionsBuilder.UseNpgsql(
-        "Host=localhost;Port=5432;Database=dbstorage;Username=postgres;Password=8313");
+        "Host=db;Port=5432;Database=dbstorage;Username=postgres;Password=postgres");
     }
   }
 }

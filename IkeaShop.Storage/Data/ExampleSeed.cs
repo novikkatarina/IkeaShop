@@ -1,4 +1,5 @@
 using IkeaShop.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace IkeaShop.Data;
 
@@ -17,6 +18,7 @@ public class ExampleSeed
       applicationBuilder.ApplicationServices.CreateScope();
     var context = serviceScope.ServiceProvider
       .GetService<ApplicationDatabaseContext>();
+    context.Database.Migrate();
     if (context.Products.Any())
     {
       return; // База данных уже заполнена

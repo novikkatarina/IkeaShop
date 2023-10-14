@@ -1,4 +1,5 @@
 using IkeaShop.OrderService.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace IkeaShop.OrderService.Data;
 
@@ -15,6 +16,8 @@ public class ExampleSeed
   {
     using var serviceScope = applicationBuilder.ApplicationServices.CreateScope();
     var context = serviceScope.ServiceProvider.GetService<ApplicationDatabaseContext>();
+    
+    context.Database.Migrate();
     if (context.Customers.Any() || context.Orders.Any() || context.Items.Any())
     {
       return; // The database is already populated.
