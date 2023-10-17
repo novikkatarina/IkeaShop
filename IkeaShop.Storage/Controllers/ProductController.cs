@@ -1,6 +1,7 @@
 using IkeaShop.Data;
 using IkeaShop.Models;
 using IkeaShop.Service;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IkeaShop.Controllers;
@@ -106,5 +107,15 @@ public class ProductController : ControllerBase
   {
     var productToFind = ProductService.GetProductNames(request.Ids);
     return Ok(productToFind);
+  }
+
+  [HttpPost("ReduceQuantityProduct")]
+  public IActionResult ReduceQuantityProduct([FromBody] List<ProductToReduce> productsToReduce)
+  {
+    var quantity = ProductService.ReduceQuantityProduct(productsToReduce);
+  {if (quantity != null)
+    return Ok();
+  }
+  return NotFound();
   }
 }

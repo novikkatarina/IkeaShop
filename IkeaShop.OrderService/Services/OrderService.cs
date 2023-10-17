@@ -80,6 +80,7 @@ public class OrderService : IOrderService
     };
 
     var success = orderRepository.Add(order);
+    var ProductsToReduce = new List<ProductToReduce>();
     if (success)
     {
       foreach (var item in createOrderRequest.Items)
@@ -92,10 +93,34 @@ public class OrderService : IOrderService
           Quantity = item.Quantity,
           OrderId = order.Id
         });
+        ProductsToReduce.Add(new ProductToReduce
+        {
+          Id = item.ProductId, Quantity = item.Quantity
+        });
       }
+
 
       order.TotalPrice = await GetTotalPrice(order);
       orderRepository.Update(order);
+      var ProductsListToUpdate = JsonConvert.SerializeObject(ProductsToReduce);
+      
+      
+      var content = new StringContent(JsonConvert.SerializeObject(ProductsToReduce),
+        Encoding.UTF8, "application/json");
+      try
+      {
+        var response =
+          await httpClient.PostAsync("http://localhost:5246/product/ReduceQuantityProduct",
+            content);
+        Console.WriteLine(response);
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+      }
+
+      // await httpClient.GetAsync(
+      //   $"http://localhost:5246/product/ReduceQuantityProduct/{ProductsToReduce}");
       return order;
     }
 
@@ -118,7 +143,7 @@ public class OrderService : IOrderService
   {
     var response =
       await httpClient.GetAsync(
-        $"http://storage/product/price/{itemId}");
+        $"http://localhost:5246/product/price/{itemId}");
 
     if (response.IsSuccessStatusCode)
     {
@@ -129,7 +154,7 @@ public class OrderService : IOrderService
 
     return -1;
   }
-  
+
   public DateTimeOffset EstimatedDeliveryTime()
   {
     Random random = new Random();
@@ -160,7 +185,7 @@ public class OrderService : IOrderService
     // Создайте HTTP-запрос к методу микросервиса Storage
     HttpResponseMessage response =
       await httpClient.GetAsync(
-        $"http://storage/product/count/{itemId}");
+        $"http://localhost:5246/product/count/{itemId}");
 
     if (response.IsSuccessStatusCode)
     {
@@ -188,12 +213,13 @@ public class OrderService : IOrderService
       Name = customer.Name
     };
 
-    var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+    var content = new StringContent(JsonConvert.SerializeObject(request),
+      Encoding.UTF8, "application/json");
 
     try
     {
       var response =
-        await httpClient.PostAsync("http://notifier/email/send/",
+        await httpClient.PostAsync("http://localhost:5271/email/send/",
           content);
       Console.WriteLine(response);
     }
@@ -201,6 +227,5 @@ public class OrderService : IOrderService
     {
       Console.WriteLine(e);
     }
-    
   }
 }

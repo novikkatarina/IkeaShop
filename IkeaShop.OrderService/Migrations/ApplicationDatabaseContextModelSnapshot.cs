@@ -42,7 +42,7 @@ namespace IkeaShop.OrderService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("IkeaShop.OrderService.Models.Order", b =>
@@ -70,7 +70,7 @@ namespace IkeaShop.OrderService.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("IkeaShop.OrderService.Models.OrderedItem", b =>
@@ -98,7 +98,7 @@ namespace IkeaShop.OrderService.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("IkeaShop.OrderService.Models.Order", b =>

@@ -40,20 +40,6 @@ public class OrderedItemController : ControllerBase
   }
 
   /// <summary>
-  /// Creates a new ordered item.
-  /// </summary>
-  /// <param name="orderedItem">The ordered item information to create.</param>
-  /// <returns>
-  /// An <see cref="IActionResult"/> containing the created ordered item information and a Created response with the location of the newly created resource.
-  /// </returns>
-  [HttpPost]
-  public IActionResult Createitem(OrderedItem orderedItem)
-  {
-    var createditem = _orderedItemService.CreateItem(orderedItem);
-    return CreatedAtAction(nameof(Getitem), new { id = createditem.Id }, createditem);
-  }
-
-  /// <summary>
   /// Updates an existing ordered item.
   /// </summary>
   /// <param name="id">The unique identifier of the ordered item to update.</param>

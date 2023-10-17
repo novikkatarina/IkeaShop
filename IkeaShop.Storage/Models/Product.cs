@@ -51,4 +51,5 @@ public class Product
   /// Gets or sets the description of the product.
   /// </summary>
   public string Description { set; get; }
+  public string DescriptionRus { set; get; }
 }

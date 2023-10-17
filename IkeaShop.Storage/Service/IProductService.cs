@@ -14,4 +14,5 @@ public interface IProductService
   int GetProductCount(Guid id);
   decimal GetProductPrice(Guid id);
   IEnumerable<string> GetProductNames(IEnumerable<Guid> id);
+  bool ReduceQuantityProduct(List<ProductToReduce> productToReduce);
 }

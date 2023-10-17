@@ -65,4 +65,23 @@ public class ProductService : IProductService
     var names = products.Select(x => x.Title);
     return names;
   }
+
+  public bool ReduceQuantityProduct(List<ProductToReduce> productsToReduce)
+  {
+    try
+    {
+      foreach (var productToChange in productsToReduce)
+      {
+        var product = ItemRepository.GetById(productToChange.Id);
+        product.Quantity -= productToChange.Quantity;
+        ItemRepository.Update(product);
+      }
+    }
+    catch (Exception e)
+    {
+      return false;
+    }
+
+    return true;
+  }
 }
